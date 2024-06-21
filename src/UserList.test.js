@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import UserList from "./UserList";
 
 test("Render one row per user", () => {
@@ -23,7 +23,17 @@ test("Render one row per user", () => {
 });
 
 test("Render the email and name of each user", () => {
-  //
-  //
-  //
+  const users = [
+    { name: "jane", email: "jane@jane.com" },
+    { name: "sam", email: "sam@sam.com" },
+  ];
+  const { container } = render(<UserList users={users} />);
+
+  // screen.logTestingPlaygroundURL();
+  for (let user of users) {
+    const name = screen.getByRole("cell", { name: user.name });
+    const email = screen.getByRole("cell", { name: user.email });
+    expect(name).toBeInTheDocument();
+    expect(email).toBeInTheDocument();
+  }
 });
