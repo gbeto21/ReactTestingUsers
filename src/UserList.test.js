@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import UserList from "./UserList";
 
 test("Render one row per user", () => {
@@ -15,7 +15,7 @@ test("Render one row per user", () => {
   Despliega la URL en la consola cuando se ejecuta la prueba.
    */
   // screen.logTestingPlaygroundURL();
-  const rows = screen.getAllByRole("row");
+  const rows = within(screen.getByTestId("users")).getAllByRole("row");
 
   //Assertion: correct number of rows in the table
   expect(rows).toHaveLength(2);
