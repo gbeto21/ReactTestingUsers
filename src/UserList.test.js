@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import UserList from "./UserList";
 
 test("Render one row per user", () => {
@@ -7,7 +7,7 @@ test("Render one row per user", () => {
     { name: "jane", email: "jane@jane.com" },
     { name: "sam", email: "sam@sam.com" },
   ];
-  const { container } = render(<UserList users={users} />);
+  render(<UserList users={users} />);
 
   //Find all the rows in the table
   /*Genera una URL con el código generado para nuestro componente
@@ -16,7 +16,7 @@ test("Render one row per user", () => {
    */
   // screen.logTestingPlaygroundURL();
   // eslint-disable-next-line
-  const rows = container.querySelectorAll("tbody tr");
+  const rows = within(screen.getByTestId("users")).getAllByRole("row");
 
   //Assertion: correct number of rows in the table
   expect(rows).toHaveLength(2);
@@ -27,7 +27,7 @@ test("Render the email and name of each user", () => {
     { name: "jane", email: "jane@jane.com" },
     { name: "sam", email: "sam@sam.com" },
   ];
-  const { container } = render(<UserList users={users} />);
+  render(<UserList users={users} />);
 
   // screen.logTestingPlaygroundURL();
   for (let user of users) {
