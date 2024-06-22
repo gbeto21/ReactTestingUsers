@@ -1,13 +1,18 @@
 import { render, screen, within } from "@testing-library/react";
 import UserList from "./UserList";
 
-test("Render one row per user", () => {
-  //Render the component
+function renderComponent() {
   const users = [
     { name: "jane", email: "jane@jane.com" },
     { name: "sam", email: "sam@sam.com" },
   ];
   render(<UserList users={users} />);
+  return { users };
+}
+
+test("Render one row per user", () => {
+  //Render the component
+  renderComponent();
 
   //Find all the rows in the table
   /*Genera una URL con el código generado para nuestro componente
@@ -23,11 +28,7 @@ test("Render one row per user", () => {
 });
 
 test("Render the email and name of each user", () => {
-  const users = [
-    { name: "jane", email: "jane@jane.com" },
-    { name: "sam", email: "sam@sam.com" },
-  ];
-  render(<UserList users={users} />);
+  const { users } = renderComponent();
 
   // screen.logTestingPlaygroundURL();
   for (let user of users) {
